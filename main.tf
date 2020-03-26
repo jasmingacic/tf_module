@@ -1,6 +1,13 @@
+terraform {
+  backend "pg" {
+    conn_str = "ppostgres://localhost/terraform_backend"
+  }
+}
+
 provider "packet" {
   auth_token = var.api_key
 }
+
 
 resource "packet_device" "my_tf_server" {
   hostname         = "my-tf-serve"
