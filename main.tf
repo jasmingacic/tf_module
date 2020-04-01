@@ -1,9 +1,3 @@
-terraform {
-  backend "pg" {
-    conn_str = "ppostgres://localhost/terraform_backend"
-  }
-}
-
 provider "packet" {
   auth_token = var.api_key
 }
