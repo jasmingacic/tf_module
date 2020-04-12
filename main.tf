@@ -2,9 +2,8 @@ provider "packet" {
   auth_token = var.api_key
 }
 
-
 resource "packet_device" "my_tf_server" {
-  hostname         = "my-tf-serve"
+  hostname         = var.name
   plan             = "t1.small.x86"
   facilities       = ["ewr1"]
   operating_system = "centos_7"
