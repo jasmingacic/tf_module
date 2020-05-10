@@ -13,4 +13,5 @@ steps:
     - terraform -v
     - terraform init
     - terraform validate
-    - terraform fmt -list=true -write=false -diff
+    - terraform fmt -list=true -write=false -diff -check
+    # - $? == 3

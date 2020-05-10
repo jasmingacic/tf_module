@@ -6,7 +6,7 @@ variable "project_id" {
 }
 
 variable "name" {
-  type    =       string
-  default = "tf-module-test"
+  type    = string
+  default =  "tf-module-test"
 }
 
