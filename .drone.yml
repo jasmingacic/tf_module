@@ -1,0 +1,16 @@
+kind: pipeline
+name: default
+steps:
+- name: Deploy
+  image: alpine
+  environment:
+    GO111MODULE: on
+  commands:
+    - apk --update add curl unzip 
+    - curl --silent --output terraform.zip "https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip"
+    - unzip terraform.zip ; rm -f terraform.zip; chmod +x terraform
+    - mv terraform /usr/bin
+    - terraform -v
+    - terraform init
+    - terraform validate
+    - terraform fmt -list=true -write=false -diff

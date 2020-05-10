@@ -8,9 +8,9 @@ resource "packet_device" "my_tf_server" {
   facilities       = ["ewr1"]
   operating_system = "centos_7"
   billing_cycle    = "hourly"
-  project_id       = var.project_id
-  provisioner "local-exec" {
-    command = "echo blah"
+  project_id        = var.project_id
+  provisioner "local-exec" {  
+                command = "echo blah"
   }
 }
 
