@@ -110,8 +110,8 @@ resource "null_resource" "download_kubeconfig"{
     ]
     provisioner "local-exec" {
         command = <<-EOC
-            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${packet_device.k3s_master_node.access_public_ipv4}:/etc/rancher/k3s/k3s.yaml k3s_kubeconfig
-            sed -i 's/127.0.0.1/${packet_device.k3s_master_node.access_public_ipv4}/g' k3s_kubeconfig
+            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null root@${packet_device.k3s_master_node.access_public_ipv4}:/etc/rancher/k3s/k3s.yaml ./output/k3s_kubeconfig
+            sed -i 's/127.0.0.1/${packet_device.k3s_master_node.access_public_ipv4}/g' ./output/k3s_kubeconfig
         EOC
     }
     provisioner "local-exec" {
