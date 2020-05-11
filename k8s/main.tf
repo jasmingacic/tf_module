@@ -73,7 +73,7 @@ resource "packet_device" "k3s_worker_nodes" {
 }
 
 data "template_file" "k3s_install_script" {
-    template = file("templates/scripts/install_k3s.sh")
+    template = file("${path.module}/templates/scripts/install_k3s.sh")
     vars = {
         k3s_version = var.k3s_version
         master_node_ip = packet_device.k3s_master_node.access_public_ipv4
@@ -123,7 +123,7 @@ resource "null_resource" "download_kubeconfig"{
 }
 
 data "template_file" "ccm_secret" {
-    template = file("templates/packet_ccm/ccm_secret.yaml")
+    template = file("${path.module}/templates/packet_ccm/ccm_secret.yaml")
     vars = {
         auth_token = var.auth_token
         project_id = packet_project.new_project.id
@@ -131,7 +131,7 @@ data "template_file" "ccm_secret" {
 }
 
 data "template_file" "ccm_deployment" {
-    template = file("templates/packet_ccm/ccm_deployment.yaml")
+    template = file("${path.module}/templates/packet_ccm/ccm_deployment.yaml")
 }
 
 resource "null_resource" "install_ccm"{
@@ -166,7 +166,7 @@ resource "null_resource" "install_ccm"{
 }
 
 data "template_file" "cluster_autoscaler_secret" {
-    template = file("templates/packet_cluster_autoscaler/cluster_autoscaler_secret.yaml")
+    template = file("${path.module}/templates/packet_cluster_autoscaler/cluster_autoscaler_secret.yaml")
     vars = {
         auth_token = base64encode(var.auth_token)
         project_id = packet_project.new_project.id
@@ -181,7 +181,7 @@ data "template_file" "cluster_autoscaler_secret" {
 }
 
 data "template_file" "cluster_autoscaler_deployment" {
-    template = file("templates/packet_cluster_autoscaler/cluster_autoscaler_deployment.yaml")
+    template = file("${path.module}/templates/packet_cluster_autoscaler/cluster_autoscaler_deployment.yaml")
     vars = {
         autoscaler_image_version = var.autoscaler_image_version
         cluster_name = var.cluster_name
@@ -192,11 +192,11 @@ data "template_file" "cluster_autoscaler_deployment" {
 }
 
 data "template_file" "cluster_autoscaler_svcaccount" {
-    template = file("templates/packet_cluster_autoscaler/cluster_autoscaler_svcaccount.yaml")
+    template = file("${path.module}/templates/packet_cluster_autoscaler/cluster_autoscaler_svcaccount.yaml")
 }
 
 data "template_file" "setup_cluster_autoscaler" {
-    template = file("templates/packet_cluster_autoscaler/setup_cluster_autoscaler.sh")
+    template = file("${path.module}/templates/packet_cluster_autoscaler/setup_cluster_autoscaler.sh")
     vars = {
         master_ip = packet_device.k3s_master_node.access_public_ipv4
         api_port = 6443
@@ -261,7 +261,7 @@ resource "null_resource" "install_csi"{
     }
     
     provisioner "file" {
-        source      = "templates/packet_csi"
+        source      = "${path.module}/templates/packet_csi"
         destination = "/root/bootstrap"
     }
     
@@ -271,7 +271,7 @@ resource "null_resource" "install_csi"{
 }
 
 data "template_file" "helm_install_script" {
-    template = file("templates/scripts/install_helm.sh")
+    template = file("${path.module}/templates/scripts/install_helm.sh")
     vars = {
         helm_version = var.helm_version
     }
@@ -304,7 +304,7 @@ resource "null_resource" "install_helm"{
 }
 
 data "template_file" "nginx_ingress_values" {
-    template = file("templates/nginx/nginx_ingress_values.yaml")
+    template = file("${path.module}/templates/nginx/nginx_ingress_values.yaml")
 }
 
 resource "null_resource" "install_nginx"{
