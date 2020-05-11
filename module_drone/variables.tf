@@ -9,4 +9,3 @@ variable "name" {
   type    = string
   default = "tf-module-test"
 }
-
