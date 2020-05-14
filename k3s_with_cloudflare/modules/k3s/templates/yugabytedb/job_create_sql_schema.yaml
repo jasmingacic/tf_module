@@ -1,0 +1,27 @@
+---
+    apiVersion: batch/v1
+    kind: Job
+    metadata:
+      name: postgresql-schema
+    spec:
+      template:
+        spec:
+          containers:
+            - name: postgresql-schema
+              image: c0dyhi11/postgresql-client:latest
+              command: ["psql", "-h", "yb-tserver-service", "-p", "5433", "-U", "yugabyte", "-f", "/opt/schema.sql"]
+              volumeMounts:
+              - name: sql-schema
+                mountPath: /opt
+              env:
+              # This is the default password, you should change this via the sql-schema configmap
+              - name: PGPASSWORD
+                value: "yugabyte"
+          volumes:
+            - name: sql-schema
+              configMap:
+                name: sql-schema
+                items:
+                - key: schema.sql
+                  path: schema.sql
+          restartPolicy: Never

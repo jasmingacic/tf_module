@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ah-ah-ah
+  labels:
+    app: ah-ah-ah
+spec:
+  replicas: 2
+  spec:
+  selector:
+    matchLabels:
+      app: ah-ah-ah
+  template:
+    metadata:
+      labels:
+        app: ah-ah-ah
+    spec:
+      containers:
+        - name: ah-ah-ah
+          image: nginx:stable
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: index-html 
+              mountPath: /usr/share/nginx/html/index.html
+              subPath: index.html
+            - name: default-conf
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+      volumes:
+        - name: index-html
+          configMap:
+            name: ah-ah-ah-configmap
+        - name: default-conf
+          configMap:
+            name: ah-ah-ah-configmap
+      restartPolicy: Always
