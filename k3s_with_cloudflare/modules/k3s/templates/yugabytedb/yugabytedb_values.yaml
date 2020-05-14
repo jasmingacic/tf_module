@@ -1,0 +1,28 @@
+---
+storage:
+  master:
+    storageClass: longhorn
+  tserver:
+    storageClass: longhorn
+
+gflags:
+  master:
+    default_memory_limit_to_ram_ratio: 0.85
+  tserver:
+    use_cassandra_authentication: false
+    ysql_enable_auth: true
+
+serviceEndpoints:
+  - name: "yb-master-ui"
+    type: ClusterIP
+    app: "yb-master"
+    ports:
+      ui: "7000"
+
+  - name: "yb-tserver-service"
+    type: ClusterIP
+    app: "yb-tserver"
+    ports:
+      yql-port: "9042"
+      yedis-port: "6379"
+      ysql-port: "5433"

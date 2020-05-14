@@ -1,0 +1,18 @@
+---
+kind: ConfigMap
+metadata:
+  name: sql-schema
+apiVersion: v1
+data:
+  schema.sql: |+
+    CREATE DATABASE ${db_name};
+    CREATE USER ${db_name} WITH PASSWORD '${db_pass}';
+    GRANT ALL PRIVILEGES ON DATABASE ${db_name} to ${db_name};
+    \c ${db_name}
+    CREATE TABLE ${db_name} (
+        uuid VARCHAR(255) PRIMARY KEY,
+        mime_type VARCHAR(255) NOT NULL,
+        file_name VARCHAR(255) NOT NULL,
+        file_data BYTEA NOT NULL
+    );
+    ALTER USER yugabyte WITH PASSWORD '${yugabyte_pass}';
