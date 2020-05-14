@@ -584,9 +584,9 @@ resource "null_resource" "install_yugabytedb" {
     }
 }
 
-data "template_file" "kubeconfig" {
-    depends_on = [
-        null_resource.download_kubeconfig
-    ]
-    template = file("${path.module}/k3s_kubeconfig")
-}
+#data "template_file" "kubeconfig" {
+#    depends_on = [
+#        null_resource.download_kubeconfig
+#    ]
+#    template = file("${path.module}/k3s_kubeconfig")
+#}
