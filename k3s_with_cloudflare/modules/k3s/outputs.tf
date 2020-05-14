@@ -1,5 +1,5 @@
 output "public_ips" {
-    value = "${packet_device.k3s_worker_nodes.*.access_public_ipv4}"
+  value = "${packet_device.k3s_worker_nodes.*.access_public_ipv4}"
 }
 
 #output "kubeconfig" {
