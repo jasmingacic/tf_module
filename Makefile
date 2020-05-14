@@ -1,9 +1,9 @@
 # /bin/bash
-# SUBDIRS := $(wildcard */.)
+SUBDIRS := $(wildcard */.)
 VAR_FILE := "variables.tf"
 OUT_FILE := "outputs.tf"
 define submake
-	for d in $(ARGS);                  \
+	for d in $(SUBDIRS);                  \
 	do       \
 		terraform init $$d; \
 		terraform validate $$d; \

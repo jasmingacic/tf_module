@@ -8,4 +8,4 @@ steps:
       - curl --silent --output terraform.zip "https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip"
       - unzip terraform.zip ; rm -f terraform.zip; chmod +x terraform
       - mv terraform /usr/bin
-      - make ARGS="$(git diff --dirstat=files,0 HEAD~1 | sed 's/^[ 0-9.]\+% //g' | sed -z 's/\n/ /g')"
+      - make
